@@ -37,7 +37,7 @@ class _ImageBubble extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: Image.network(
-        "https://www.google.com/url?sa=i&url=https%3A%2F%2Fgifer.com%2Fes&psig=AOvVaw2-Yl6pG_xWfUh_l6tbYqhc&ust=1743739896384000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCLjMwbr_uowDFQAAAAAdAAAAABAm",
+        'https://uploads-us-west-2.insided.com/figma-en/attachment/7105e9c010b3d1f0ea893ed5ca3bd58e6cec090e.gif',
         width: size.width * 0.7,
         height: 150,
         fit: BoxFit.cover,

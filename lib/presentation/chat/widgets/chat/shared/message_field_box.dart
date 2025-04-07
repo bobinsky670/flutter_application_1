@@ -16,11 +16,10 @@ class MessageFieldBox extends StatelessWidget {
     );
 
     final inputDecoration = InputDecoration(
-      hintText: "End your message with a " ?? " ",
+      hintText: '"End your message with a " ?? "',
       enabledBorder: borderStyle,
       focusedErrorBorder: borderStyle,
       filled: true,
-      fillColor: colorScheme.surfaceVariant, // Color de fondo
       suffixIcon: IconButton(
         icon: const Icon(Icons.send_outlined),
         onPressed: () {

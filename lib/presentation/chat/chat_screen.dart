@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/presentation/chat/widgets/chat/her_message_bubble.dart';
 import 'package:flutter_application_1/presentation/chat/widgets/chat/my_message_bubble.dart';
 import 'package:flutter_application_1/presentation/chat/widgets/chat/shared/message_field_box.dart';
+import 'package:flutter_application_1/presentation/providers/ChatProvider.dart';
+import 'package:provider/provider.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
@@ -14,7 +16,7 @@ class ChatScreen extends StatelessWidget {
           padding: EdgeInsets.all(4.0),
           child: CircleAvatar(
             backgroundImage: NetworkImage(
-                "https://media2.giphy.com/media/LHZyixOnHwDDy/200w.gif?cid=6c09b952a84cus7kti2ypjtxa2dcqxud5ly67x2h3s70xiq9&ep=v1_gifs_search&rid=200w.gif&ct=g"),
+                'https://media.tenor.com/o6x1_Z69E_4AAAAM/zayn-zaynmalik.gif'),
           ),
         ),
         title: Text("mi amor"),
@@ -28,6 +30,9 @@ class ChatScreen extends StatelessWidget {
 class _ChatView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //Le pide qe este pendiene de cambios
+    final chatProvider = context.watch<Chatprovider>();
+
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -37,9 +42,9 @@ class _ChatView extends StatelessWidget {
                 child: ListView.builder(
               itemCount: 100,
               itemBuilder: (context, index) {
-                return (index % 2 == 0 )
-                ? const HerMessageBubble()
-                : const MyMessageBubble();
+                return (index % 2 == 0)
+                    ? const HerMessageBubble()
+                    : const MyMessageBubble();
               },
             )),
             const MessageFieldBox(),
