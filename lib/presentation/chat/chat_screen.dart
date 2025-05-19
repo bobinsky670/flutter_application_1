@@ -13,26 +13,28 @@ class ChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const Padding(
-          padding: EdgeInsets.all(4.0),
+        leading: Padding(
+          padding: const EdgeInsets.all(4.0),
           child: CircleAvatar(
-            backgroundImage: NetworkImage(
-                'https://media.tenor.com/o6x1_Z69E_4AAAAM/zayn-zaynmalik.gif'),
+            backgroundImage: NetworkImage('https://media.tenor.com/o6x1_Z69E_4AAAAM/zayn-zaynmalik.gif'),
           ),
         ),
-        title: Text("mi amor"),
+        title: Text('mi amor'),
         centerTitle: false,
-      ),
-      body: _ChatView(),
-    );
+        ),
+        body: _ChatView(),
+        );
   }
 }
 
 class _ChatView extends StatelessWidget {
+  
+
   @override
   Widget build(BuildContext context) {
-    //Le pide qe este pendiene de cambios
-    final chatProvider = context.watch<Chatprovider>();
+
+    final chatProvider = context.watch<ChatProvider>();
+
 
     return SafeArea(
       child: Padding(
@@ -40,24 +42,25 @@ class _ChatView extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-                child: ListView.builder(
-                  //enlaza el controlador creado en chatProvider 
-                  controller: chatProvider.chatScrollController,
-              itemCount: chatProvider.messageList.length,
-              itemBuilder: (context, index) {
-                //instancia q sabra de qn es el mensaje
-                final message = chatProvider.messageList[index];
-                //si el residuo es 0 es de ella; si no es 0 es mio
-                //si es par es de ella, si no es mio
-               // return (index % 2 == 0)
-                return (message.fromWho == FromWho.hers)
-                    ? const HerMessageBubble()
-                    : MyMessageBubble(message: message);
-              },
-            )),
-             MessageFieldBox(
-              onValue: chatProvider.sendMessage
+              child:ListView.builder(
+                controller: chatProvider.chatScrollController,
+                itemCount: chatProvider.messageList.length,
+                itemBuilder: (context, index) {           
+                  //instancia que sabra de quien es el mensaje       
+                  final message = chatProvider.messageList[index];
+                  //si el residuo es 0 es della si no es 0 es mio
+                  //si es par es de ella, si es impar es el mio
+                  return(message.fromWho == FromWho.hers)
+                  ?  HerMessageBubble(message : message)
+                  :  MyMessageBubble(message: message);
+                 },)
                ),
+           
+        //caja de texto
+            MessageFieldBox(
+              onValue: (value) => chatProvider.sendMessage(value),
+            ),
+        
           ],
         ),
       ),

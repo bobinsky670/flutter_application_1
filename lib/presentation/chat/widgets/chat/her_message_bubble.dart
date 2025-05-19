@@ -1,57 +1,87 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/domain/entities/message.dart';
 
 class HerMessageBubble extends StatelessWidget {
-  const HerMessageBubble({super.key});
+  const HerMessageBubble ({
+    super.key, 
+    required this.message
+    });
+
+final Message message;
+
+
 
   @override
   Widget build(BuildContext context) {
+
+    final colors = Theme.of(context).colorScheme;
+   
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+
         Container(
           decoration: BoxDecoration(
-              color: Colors.blue, borderRadius: BorderRadius.circular(20)),
+            color: colors.secondary, borderRadius: BorderRadius.circular(20)
+          ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            padding: const  EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Text(
-              "te quiero",
-              style: TextStyle(color: Colors.white),
+              message.text, 
+            style: TextStyle(color: Colors.white),
             ),
           ),
         ),
-        const SizedBox(height: 5),
-        _ImageBubble(),
-        SizedBox(
-          height: 10,
-        )
+        SizedBox(height: 5,),
+        //signo de aclaracion: siempre va devolver una imagen
+        _ImageBubble(message.imageUrl!),
+
+        SizedBox(height:10,)
+
+        //Todo: imagen
       ],
     );
   }
 }
 
 class _ImageBubble extends StatelessWidget {
+
+final String imageUrl;
+
+  const _ImageBubble( this.imageUrl);
+
+
+ 
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
+
+
+
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: Image.network(
-        'https://uploads-us-west-2.insided.com/figma-en/attachment/7105e9c010b3d1f0ea893ed5ca3bd58e6cec090e.gif',
-        width: size.width * 0.7,
-        height: 150,
-        fit: BoxFit.cover,
-        loadingBuilder: (context, child, loadingProgress) {
-          if (loadingProgress == null) return child; 
+        imageUrl, 
+          width: size.width * 0.7,
+          height: 150,
+          fit: BoxFit.cover,
+          loadingBuilder:(context, child, loadingProgress) {
+            
+            if(loadingProgress == null) return child;
 
-          return Container(
-            width: size.width * 0.7,
-            height: 150,
-            padding: const EdgeInsetsDirectional.symmetric(horizontal: 10, vertical: 5),
-            child: const Text("mi amor esta enviando una imagen"),
-          );
-        },
-      ),
-    );
+            return Container(
+              width: size.width * 0.7,
+              height: 150,
+              padding: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+              child: Text('mi amor esta enviando una imagen'),
+            );
+          }
+
+
+      )
+      );
   }
 }
